@@ -1,0 +1,28 @@
+# 프로젝트별 상태 파일 — 프로젝트 레포에만 저장, PRINCIPLES 레포에는 절대 포함하지 않음
+sessions/*/STATE.md
+sessions/_shared/ACTIVE_CONTEXT*.md
+sessions/_shared/PROJECT_CONTEXT*.md
+
+# 프로젝트 코드 — 프로젝트 레포에서 관리
+news-tracker/
+AGENTS.md
+
+# 프로젝트 코드 디렉터리 — 각 프로젝트의 개별 레포에서 관리
+autotrader/
+dataverse/
+joomidang-platform/
+joomidang-v2/
+KDT/
+node_modules/
+
+# DB 마이그레이션 — 프로젝트 레포에서 관리
+*.sql
+
+# 패키지 설정
+package.json
+package-lock.json
+
+# OS / 에디터
+.DS_Store
+Thumbs.db
+.vscode/

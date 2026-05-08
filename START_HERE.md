@@ -37,16 +37,31 @@ git pull
 
 ## 2단계 — 프로젝트 레포 준비
 
-작업할 프로젝트가 있다면 해당 프로젝트의 AI 상태 레포를 클론/풀한다.
+작업할 프로젝트가 있다면 PRINCIPLES 폴더 안의 `project-state/` 에 클론한다.
+`project-state/`는 `.gitignore`에 등록되어 PRINCIPLES 레포를 오염시키지 않는다.
 
 ```bash
 # 기존 프로젝트 (이어서 작업):
-git clone https://github.com/C-o-T/{프로젝트명}-ai
-# 또는
-cd {프로젝트명}-ai && git pull
+git clone https://github.com/C-o-T/{프로젝트명}-ai  project-state/{프로젝트명}-ai
+# 또는 이미 클론된 경우:
+cd project-state/{프로젝트명}-ai && git pull
 
 # 새 프로젝트 (최초):
-# chief가 자동으로 GitHub에 {프로젝트명}-ai 레포를 생성한다.
+# chief가 자동으로 GitHub에 {프로젝트명}-ai 레포를 생성하고
+# project-state/{프로젝트명}-ai 에 클론한다.
+```
+
+**로컬 디렉터리 구조 예시:**
+```
+PRINCIPLES/
+├── AGENT_PRINCIPLES.md       ← 원칙 파일 (git: C-o-T/PRINCIPLES)
+├── CLAUDE.md
+├── sessions/{role}/CLAUDE.md
+└── project-state/            ← .gitignore 등록 — 오염 없음
+    ├── joomidang-ai/         ← git: C-o-T/joomidang-ai
+    │   └── sessions/{role}/STATE.md, ACTIVE_CONTEXT.md
+    └── dataverse-ai/         ← git: C-o-T/dataverse-ai
+        └── sessions/{role}/STATE.md, ACTIVE_CONTEXT.md
 ```
 
 현재 운영 중인 프로젝트 레포:

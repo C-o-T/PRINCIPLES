@@ -29,6 +29,10 @@
 4. `project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md` 읽기
 5. `project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md` 읽기
    - **파일이 없으면**: 프로젝트 레포에 직접 생성 후 작업 시작 (최초 세션 의무)
+6. 사용자 요청의 **불확실성 등급**을 판단한다 (원칙 1.3):
+   - HIGH (핵심 정보 누락, 파괴적 작업 포함, 2가지 이상 해석 가능) → **진행 전 질문 필수**
+   - MID → 가정 명시 후 진행, 완료 후 확인 요청
+   - LOW → 바로 진행
 
 ---
 
@@ -84,7 +88,7 @@
 ```
 
 **병렬 실행**: 서로 독립적인 작업은 Agent 도구를 동시에 여러 개 호출한다.
-**감시 세션**: overseer / stability / sentinel은 작업 시작 시 각각 Agent로 생성하고 백그라운드에서 유지한다.
+**감시 세션**: overseer / stability / sentinel은 **5개 파일 로드 완료 직후, 사용자 첫 지시 처리 전**에 각각 Agent로 실행한다.
 **감시 세션의 경고는 chief만 수신**: overseer/stability/sentinel은 chief에게만 경고하며, 서브 세션에 직접 개입하지 않는다.
 
 ---
@@ -95,6 +99,7 @@
 수용 → 원인 분석(원칙 1) + 수정 계획 명시 + ACTIVE_CONTEXT.md 업데이트
 반박 → 반박 근거 명시 + rca 세션 검토 요청
 무시 → sentinel이 감지 → 사용자에게 직접 보고
+복수 경고 충돌 → sentinel이 병합하여 단일 경고로 수신 → 위 절차 적용
 ```
 
 경고를 무시하지 않는다. 수용하든 반박하든 반드시 응답한다.
@@ -103,8 +108,13 @@
 
 ## 파일 생성 시 즉시 git 추적 의무
 
-새 파일을 만든 즉시 git에 추가한다. 세션 종료 전 아래를 반드시 실행한다:
+새 파일을 만든 즉시 git에 추가한다. 세션 종료 전 반드시 실행한다.
 
+**파일 성격에 따라 push 레포가 다르다:**
+- 원칙·설정 파일 (AGENT_PRINCIPLES.md, sessions/{role}/CLAUDE.md 등) → PRINCIPLES 레포
+- 상태·기억 파일 (STATE.md, ACTIVE_CONTEXT.md, PROJECT_CONTEXT.md) → 프로젝트 레포
+
+**미추적 파일 확인 (해당 레포 디렉터리에서):**
 ```bash
 git ls-files --others --exclude-standard sessions/
 ```

@@ -11,7 +11,7 @@
 
 | 레포 | 역할 | 포함 파일 |
 |------|------|-----------|
-| `C-o-T/PRINCIPLES` | 원칙·설정 전용 (pull만) | AGENT_PRINCIPLES.md, CLAUDE.md, sessions/{role}/CLAUDE.md |
+| `C-o-T/PRINCIPLES` | 원칙·설정 전용 (pull만) | sessions/_shared/PRINCIPLES.md, AGENT_PRINCIPLES.md, CLAUDE.md, sessions/{role}/CLAUDE.md |
 | `C-o-T/{프로젝트명}-ai` | 프로젝트별 상태 전용 (push/pull) | STATE.md, ACTIVE_CONTEXT.md, PROJECT_CONTEXT.md |
 
 **PRINCIPLES 레포에는 절대 push하지 않는다.**
@@ -82,9 +82,9 @@ PRINCIPLES/
 2. `sessions/chief/CLAUDE.md` — chief 역할 정의
 
 **프로젝트 레포에서 읽기 (프로젝트 레포가 있을 때):**
-3. `sessions/chief/STATE.md` — chief 개인 기억 (없으면 최초 투입 — 빈 파일 생성)
-4. `sessions/_shared/PROJECT_CONTEXT.md` — 프로젝트 기술 컨텍스트
-5. `sessions/_shared/ACTIVE_CONTEXT.md` — 현재 진행 중인 작업 상태
+3. `project-state/{프로젝트명}-ai/sessions/chief/STATE.md` — chief 개인 기억 (없으면 최초 투입 — 빈 파일 생성)
+4. `project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md` — 프로젝트 기술 컨텍스트
+5. `project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md` — 현재 진행 중인 작업 상태
 
 프로젝트 레포가 없을 때: PRINCIPLES 레포 읽기(1~2)만 완료 후, 어떤 프로젝트를 시작할지 사용자에게 확인한다.
 

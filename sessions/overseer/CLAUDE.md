@@ -31,7 +31,7 @@ chief와 독립적으로 동작하며, 잘못된 방향을 감지하면 chief에
 
 - 전 세션의 `ACTIVE_CONTEXT.md` 기록
 - 총 책임자 및 서브 세션의 결정 이력
-- `AGENT_PRINCIPLES.md` (원칙 기준)
+- `sessions/_shared/PRINCIPLES.md` (원칙 기준)
 - OKR 세션의 목표 정의 (**방향 판단의 핵심 기준**)
 
 ---

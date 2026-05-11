@@ -21,7 +21,7 @@
 ## 세션 시작 5단계 (필수)
 
 ```
-1. AGENT_PRINCIPLES.md                                                읽기 (PRINCIPLES 레포)
+1. sessions/_shared/PRINCIPLES.md                                     읽기 (PRINCIPLES 레포) ← 이 파일
 2. sessions/{내 역할}/CLAUDE.md                                       읽기 (PRINCIPLES 레포)
 3. project-state/{프로젝트명}-ai/sessions/{내 역할}/STATE.md          읽기 (프로젝트 레포, 없으면 최초 투입 — 생성)
 4. project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md 읽기 (프로젝트 레포)
@@ -76,7 +76,7 @@
 
 ## 세션 종료 기록 형식
 
-세션 종료 전 `sessions/_shared/ACTIVE_CONTEXT.md`에 아래 형식으로 기록한다:
+세션 종료 전 `project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md`에 아래 형식으로 기록한다:
 
 ```
 [세션 종료 기록]

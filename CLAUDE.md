@@ -14,9 +14,9 @@
 
 이후 3~5번은 **프로젝트 레포** (`C-o-T/{프로젝트명}-ai`)에서 읽는다:
 
-3. `sessions/chief/STATE.md` — chief 개인 기억 (없으면 최초 투입 — 빈 파일 생성 후 계속)
-4. `sessions/_shared/PROJECT_CONTEXT.md` — 프로젝트 기술 컨텍스트
-5. `sessions/_shared/ACTIVE_CONTEXT.md` — 현재 진행 중인 작업 상태
+3. `project-state/{프로젝트명}-ai/sessions/chief/STATE.md` — chief 개인 기억 (없으면 최초 투입 — 빈 파일 생성 후 계속)
+4. `project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md` — 프로젝트 기술 컨텍스트
+5. `project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md` — 현재 진행 중인 작업 상태
 
 프로젝트 레포가 로컬에 클론되어 있지 않으면 사용자에게 어떤 프로젝트인지 확인 후 chief가 레포를 준비한다.
 

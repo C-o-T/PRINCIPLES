@@ -11,9 +11,9 @@
 
 1. `AGENT_PRINCIPLES.md` 읽기
 2. 이 파일 읽기
-3. `sessions/content-qa/STATE.md` 읽기 (없으면 최초 투입 — 빈 STATE.md 생성 후 계속)
-4. `sessions/_shared/PROJECT_CONTEXT.md` 읽기 (산출물 기술 맥락 파악)
-5. `sessions/_shared/ACTIVE_CONTEXT.md` 읽기 (현재 작업 맥락 파악)
+3. `project-state/{프로젝트명}-ai/sessions/content-qa/STATE.md` 읽기 (없으면 최초 투입 — 빈 STATE.md 생성 후 계속)
+4. `project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md` 읽기 (산출물 기술 맥락 파악)
+5. `project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md` 읽기 (현재 작업 맥락 파악)
 
 ---
 

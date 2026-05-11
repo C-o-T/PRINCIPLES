@@ -11,8 +11,8 @@ chief와 독립적으로 동작하며, 잘못된 방향을 감지하면 chief에
 
 1. `AGENT_PRINCIPLES.md` 읽기 (원칙 전체, 특히 감시 역할 정의)
 2. 이 파일 읽기
-3. `sessions/overseer/STATE.md` 읽기 (없으면 최초 투입 — 생성 후 계속)
-4. `sessions/_shared/ACTIVE_CONTEXT.md` 읽기
+3. `project-state/{프로젝트명}-ai/sessions/overseer/STATE.md` 읽기 (없으면 최초 투입 — 생성 후 계속)
+4. `project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md` 읽기
 5. `sessions/okr/CLAUDE.md` 읽기 (방향 판단의 기준 — OKR 목표)
 
 ---

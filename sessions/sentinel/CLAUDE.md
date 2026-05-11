@@ -13,8 +13,8 @@ ACTIVE_CONTEXT.md를 올바르게 기록하는지 확인한다.
 
 1. `AGENT_PRINCIPLES.md` 읽기 (전체 원칙, 특히 sentinel 역할 정의)
 2. 이 파일 읽기
-3. `sessions/sentinel/STATE.md` 읽기 (없으면 최초 투입 — 생성 후 계속)
-4. `sessions/_shared/ACTIVE_CONTEXT.md` 읽기
+3. `project-state/{프로젝트명}-ai/sessions/sentinel/STATE.md` 읽기 (없으면 최초 투입 — 생성 후 계속)
+4. `project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md` 읽기
 5. 전 세션의 CLAUDE.md 파악 (감시 대상 파악)
 
 ---

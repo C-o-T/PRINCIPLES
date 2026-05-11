@@ -25,10 +25,10 @@
 
 1. `AGENT_PRINCIPLES.md` 읽기
 2. 이 파일 읽기
-3. `sessions/chief/STATE.md` 읽기 (없으면 최초 투입 — 생성 후 계속)
-4. `sessions/_shared/PROJECT_CONTEXT.md` 읽기
-5. `sessions/_shared/ACTIVE_CONTEXT.md` 읽기
-   - **파일이 없으면**: 직접 생성 후 작업 시작 (최초 세션 의무)
+3. `project-state/{프로젝트명}-ai/sessions/chief/STATE.md` 읽기 (없으면 최초 투입 — 프로젝트 레포에서 생성)
+4. `project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md` 읽기
+5. `project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md` 읽기
+   - **파일이 없으면**: 프로젝트 레포에 직접 생성 후 작업 시작 (최초 세션 의무)
 
 ---
 
@@ -79,7 +79,7 @@
 작업 완료 후 반드시 아래 순서로 처리한다:
 1. 결과 정리
 2. 더 나은 방향이 보이면 chief에게 제안 (원칙 2.2 형식)
-3. sessions/{role}/STATE.md 갱신 (작업 이력, 핵심 결정, 다음 작업 예상 업데이트)
+3. project-state/{프로젝트명}-ai/sessions/{role}/STATE.md 갱신 (작업 이력, 핵심 결정, 다음 작업 예상 업데이트)
 4. chief에게 결과 반환
 ```
 

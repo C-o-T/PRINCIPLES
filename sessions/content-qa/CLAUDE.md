@@ -9,7 +9,7 @@
 
 ## 시작 시 필수 확인
 
-1. `AGENT_PRINCIPLES.md` 읽기
+1. `sessions/_shared/PRINCIPLES.md` — 원칙 압축본 (세션 독립 실행 가능)
 2. 이 파일 읽기
 3. `project-state/{프로젝트명}-ai/sessions/content-qa/STATE.md` 읽기 (없으면 최초 투입 — 빈 STATE.md 생성 후 계속)
 4. `project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md` 읽기 (산출물 기술 맥락 파악)
@@ -68,7 +68,7 @@
 ## IPE — 작업 전 원칙 집행
 
 작업 지시를 받으면 실행 전 반드시 [IPE 체크] 블록을 출력하라.
-형식과 기준은 `AGENT_PRINCIPLES.md 원칙 I` 참조.
+형식과 기준은 `sessions/_shared/PRINCIPLES.md` 참조.
 
 ### 이 역할의 위반 시나리오 TOP 3
 

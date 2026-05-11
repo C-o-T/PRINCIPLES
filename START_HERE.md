@@ -78,7 +78,7 @@ PRINCIPLES/
 아래 5개 파일을 순서대로 읽는다. 모두 읽기 전에 작업을 시작하지 않는다.
 
 **PRINCIPLES 레포에서 읽기:**
-1. `AGENT_PRINCIPLES.md` — 운영 원칙 전체
+1. `sessions/_shared/PRINCIPLES.md` — 운영 원칙 압축본 (세션 독립 실행)
 2. `sessions/chief/CLAUDE.md` — chief 역할 정의
 
 **프로젝트 레포에서 읽기 (프로젝트 레포가 있을 때):**
@@ -139,7 +139,7 @@ sessions/stability/STATE.md        sessions/sentinel/STATE.md
 
 ```
 [준비 완료]
-읽은 파일   : AGENT_PRINCIPLES.md / chief/CLAUDE.md / chief/STATE.md /
+읽은 파일   : sessions/_shared/PRINCIPLES.md / chief/CLAUDE.md / chief/STATE.md /
               PROJECT_CONTEXT.md / ACTIVE_CONTEXT.md
 작업 프로젝트: {프로젝트명 또는 "미정"}
 이전 작업   : {ACTIVE_CONTEXT에서 파악한 미완료 사항 요약, 없으면 "없음"}

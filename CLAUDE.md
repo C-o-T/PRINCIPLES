@@ -9,7 +9,7 @@
 
 **[이 레포는 PRINCIPLES 원칙 설정 전용이다 — 여기에는 push하지 않는다]**
 
-1. `AGENT_PRINCIPLES.md` — 7가지 운영 원칙 전체
+1. `sessions/_shared/PRINCIPLES.md` — 운영 원칙 압축본 (세션 독립 실행)
 2. `sessions/chief/CLAUDE.md` — chief 역할 정의 및 Agent 도구 사용법
 
 이후 3~5번은 **프로젝트 레포** (`C-o-T/{프로젝트명}-ai`)에서 읽는다:

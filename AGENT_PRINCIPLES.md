@@ -322,9 +322,9 @@ AI 세션은 이전 세션의 내용을 기억하지 못한다.
 |------|------|------|
 | 1 | `AGENT_PRINCIPLES.md` | 공통 원칙 |
 | 2 | `sessions/chief/CLAUDE.md` | 역할 정의 및 책임 |
-| 3 | `sessions/chief/STATE.md` | chief 개인 기억 (없으면 최초 — 생성 후 계속) |
-| 4 | `sessions/_shared/PROJECT_CONTEXT.md` | 프로젝트 기술 컨텍스트 |
-| 5 | `sessions/_shared/ACTIVE_CONTEXT.md` | 현재 진행 중인 작업 상태 |
+| 3 | `project-state/{프로젝트명}-ai/sessions/chief/STATE.md` | chief 개인 기억 — **프로젝트 레포**에서 읽기 (없으면 최초 — 생성 후 계속) |
+| 4 | `project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md` | 프로젝트 기술 컨텍스트 — **프로젝트 레포** |
+| 5 | `project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md` | 현재 진행 중인 작업 상태 — **프로젝트 레포** |
 
 **서브 세션 (planner / developer / rca / okr / data / content-qa / perf)**
 
@@ -332,9 +332,9 @@ AI 세션은 이전 세션의 내용을 기억하지 못한다.
 |------|------|------|
 | 1 | `AGENT_PRINCIPLES.md` | 공통 원칙 |
 | 2 | `sessions/{내 역할}/CLAUDE.md` | 역할 정의 및 책임 |
-| 3 | `sessions/{내 역할}/STATE.md` | 개인 기억 (없으면 최초 — 생성 후 계속) |
-| 4 | `sessions/_shared/PROJECT_CONTEXT.md` | 프로젝트 기술 컨텍스트 |
-| 5 | `sessions/_shared/ACTIVE_CONTEXT.md` | 현재 진행 중인 작업 상태 |
+| 3 | `project-state/{프로젝트명}-ai/sessions/{내 역할}/STATE.md` | 개인 기억 — **프로젝트 레포** (없으면 최초 — 생성 후 계속) |
+| 4 | `project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md` | 프로젝트 기술 컨텍스트 — **프로젝트 레포** |
+| 5 | `project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md` | 현재 진행 중인 작업 상태 — **프로젝트 레포** |
 
 **감시 세션 (overseer / stability / sentinel)**
 
@@ -342,8 +342,8 @@ AI 세션은 이전 세션의 내용을 기억하지 못한다.
 |------|------|------|
 | 1 | `AGENT_PRINCIPLES.md` | 공통 원칙 |
 | 2 | `sessions/{내 역할}/CLAUDE.md` | 역할 정의 및 책임 |
-| 3 | `sessions/{내 역할}/STATE.md` | 감시 이력 (없으면 최초 — 생성 후 계속) |
-| 4 | `sessions/_shared/ACTIVE_CONTEXT.md` | 현재 진행 중인 작업 상태 |
+| 3 | `project-state/{프로젝트명}-ai/sessions/{내 역할}/STATE.md` | 감시 이력 — **프로젝트 레포** (없으면 최초 — 생성 후 계속) |
+| 4 | `project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md` | 현재 진행 중인 작업 상태 — **프로젝트 레포** |
 
 **규칙**: 모든 파일을 확인하기 전에 작업을 시작하지 않는다.  
 파일이 없다면 총 책임자 세션에 요청하거나 불확실성 HIGH로 처리한다.  
@@ -371,12 +371,19 @@ AI 세션은 이전 세션의 내용을 기억하지 못한다.
 
 ### 6.4 컨텍스트 파일 위치 및 역할
 
+**PRINCIPLES 레포 (`C-o-T/PRINCIPLES`) — 설정 전용, pull만**
+
+| 파일 | 역할 | 관리 주체 |
+|------|------|-----------|
+| `sessions/_shared/PRINCIPLES.md` | 원칙 압축본 (빠른 참조용) | chief |
+| `sessions/{role}/CLAUDE.md` | 각 세션의 역할 정의 (불변) | chief |
+
+**프로젝트 레포 (`C-o-T/{프로젝트명}-ai`) — `project-state/{프로젝트명}-ai/`**
+
 | 파일 | 역할 | 관리 주체 |
 |------|------|-----------|
 | `sessions/_shared/ACTIVE_CONTEXT.md` | 진행 중 작업 상태 (세션 간 공유) | 매 세션 업데이트 |
 | `sessions/_shared/PROJECT_CONTEXT.md` | 프로젝트 기술 스택, API, DB 구조 | chief 또는 developer |
-| `sessions/_shared/PRINCIPLES.md` | 원칙 압축본 (빠른 참조용) | chief |
-| `sessions/{role}/CLAUDE.md` | 각 세션의 역할 정의 (불변) | chief |
 | `sessions/{role}/STATE.md` | 각 세션의 개인 기억 (매 작업 후 갱신) | 해당 세션 본인 |
 
 ---
@@ -715,15 +722,22 @@ Agent 도구로 실제 호출이 있어야 세션이 작동한다.
 
 **새 파일을 만든 즉시 `git add`한다. "나중에 한꺼번에"는 금지다.**
 
-파일이 git에 추가되지 않으면 GitHub에 올라가지 않으며, 다른 PC·세션에서 보이지 않는다.
+파일 성격에 따라 push 대상 레포가 다르다:
 
-**파일 생성 후 반드시 실행:**
+| 파일 유형 | 예시 | push 대상 |
+|-----------|------|-----------|
+| 원칙·설정 파일 | AGENT_PRINCIPLES.md, sessions/{role}/CLAUDE.md | `C-o-T/PRINCIPLES` |
+| 상태·기억 파일 | STATE.md, ACTIVE_CONTEXT.md, PROJECT_CONTEXT.md | `C-o-T/{프로젝트명}-ai` |
+
+**파일 생성 후 반드시 실행 (해당 레포 디렉터리에서):**
 
 ```bash
-git ls-files --others --exclude-standard sessions/
-```
+# 원칙 파일 수정 시 — PRINCIPLES 레포에서
+cd {PRINCIPLES 로컬 경로} && git status
 
-출력이 없으면 정상. 출력이 있으면 즉시 git add → commit → push.
+# 상태 파일 수정 시 — 프로젝트 레포에서
+cd project-state/{프로젝트명}-ai && git status
+```
 
 **완료 선언 전 최종 검증:**
 
@@ -732,7 +746,7 @@ git status
 git ls-files --others --exclude-standard sessions/
 ```
 
-두 명령 모두 sessions/ 관련 미추적 파일이 없을 때만 "완료"를 보고한다.
+두 명령 모두 미추적 파일이 없을 때만 "완료"를 보고한다.
 
 ---
 
@@ -750,3 +764,4 @@ git ls-files --others --exclude-standard sessions/
 | 2026-05-08 | 파일 생성 즉시 git 추적 규칙 추가 — 완료 선언 전 미추적 파일 검증 의무화 |
 | 2026-05-08 | 원칙 A 신설 — 위임 의무. chief는 조율자, 실행은 반드시 서브 세션에 위임. 파일만 있고 Agent 미실행은 위반. |
 | 2026-05-08 | content-qa QA 결함 수정 — CLAUDE.md/PRINCIPLES.md 원칙 A 표 통합(7가지), PRINCIPLES.md 세션 시작 5단계 + 복수 경고 병합 추가, START_HERE.md 파일 성격 차이 명시, AGENT_PRINCIPLES.md 5.2 원칙 A 우선순위 추가 |
+| 2026-05-11 | v2 — 레포 분리 구조 반영: 6.2 세션 시작 체크리스트 STATE.md/공유 파일 경로 → project-state/{프로젝트명}-ai/ 기준으로 교체, 6.4 파일 위치 표 PRINCIPLES 레포/프로젝트 레포 이원화, git 추적 규칙 레포별 push 대상 분리 |

@@ -69,9 +69,9 @@
 시작 전 반드시 아래 파일들을 순서대로 읽어라:
 1. AGENT_PRINCIPLES.md
 2. sessions/{role}/CLAUDE.md
-3. sessions/{role}/STATE.md  ← 없으면 최초 투입. 빈 STATE.md를 생성하고 시작한다.
-4. sessions/_shared/PROJECT_CONTEXT.md
-5. sessions/_shared/ACTIVE_CONTEXT.md
+3. project-state/{프로젝트명}-ai/sessions/{role}/STATE.md  ← **프로젝트 레포**에서 읽기. 없으면 최초 투입.
+4. project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md
+5. project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md
 
 작업 지시:
 {구체적인 작업 내용}

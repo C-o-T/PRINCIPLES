@@ -21,11 +21,11 @@
 ## 세션 시작 5단계 (필수)
 
 ```
-1. AGENT_PRINCIPLES.md                    읽기
-2. sessions/{내 역할}/CLAUDE.md           읽기
-3. sessions/{내 역할}/STATE.md            읽기 (없으면 최초 투입 — 빈 파일 생성)
-4. sessions/_shared/PROJECT_CONTEXT.md   읽기
-5. sessions/_shared/ACTIVE_CONTEXT.md   읽기 (있으면)
+1. AGENT_PRINCIPLES.md                                                읽기 (PRINCIPLES 레포)
+2. sessions/{내 역할}/CLAUDE.md                                       읽기 (PRINCIPLES 레포)
+3. project-state/{프로젝트명}-ai/sessions/{내 역할}/STATE.md          읽기 (프로젝트 레포, 없으면 최초 투입 — 생성)
+4. project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md 읽기 (프로젝트 레포)
+5. project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md  읽기 (프로젝트 레포, 있으면)
 ```
 
 모든 파일을 읽기 전에 작업을 시작하지 않는다.
@@ -42,6 +42,7 @@
 | "아마 맞겠지" | 원칙 4 |
 | "이건 예외야" | 원칙 5 |
 | "맥락 읽지 말고 바로 시작" | 원칙 6 |
+| "내가 빠르게 처리하면 되지" / 서브 세션 없이 완료 | 원칙 A |
 
 ---
 

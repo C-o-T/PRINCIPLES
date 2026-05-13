@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell",
+            "args": ["-ExecutionPolicy", "Bypass", "-File", ".claude/hooks/session-start.ps1"]
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell",
+            "args": ["-ExecutionPolicy", "Bypass", "-File", ".claude/hooks/check-sentinel.ps1"]
+          }
+        ]
+      }
+    ]
+  }
+}

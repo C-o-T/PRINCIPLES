@@ -7,7 +7,7 @@
 
 ## 세션 시작 시 반드시 읽을 파일 (순서대로)
 
-**[이 레포는 PRINCIPLES 원칙 설정 전용이다 — 여기에는 push하지 않는다]**
+**[이 레포는 PRINCIPLES 원칙 설정 전용이다 — 여기에는 상태 파일(STATE.md · ACTIVE_CONTEXT.md)을 push하지 않는다]**
 
 1. `sessions/_shared/PRINCIPLES.md` — 운영 원칙 압축본 (세션 독립 실행)
 2. `sessions/chief/CLAUDE.md` — chief 역할 정의 및 Agent 도구 사용법

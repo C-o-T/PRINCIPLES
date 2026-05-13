@@ -89,6 +89,7 @@
 
 **병렬 실행**: 서로 독립적인 작업은 Agent 도구를 동시에 여러 개 호출한다.
 **감시 세션**: overseer / stability / sentinel은 **5개 파일 로드 완료 직후, 사용자 첫 지시 처리 전**에 각각 Agent로 실행한다.
+빠뜨릴 경우 원칙 A 위반 — sentinel이 사용자에게 직접 보고
 **감시 세션의 경고는 chief만 수신**: overseer/stability/sentinel은 chief에게만 경고하며, 서브 세션에 직접 개입하지 않는다.
 
 ---

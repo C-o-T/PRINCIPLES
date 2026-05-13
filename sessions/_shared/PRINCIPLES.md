@@ -26,6 +26,7 @@
 3. project-state/{프로젝트명}-ai/sessions/{내 역할}/STATE.md          읽기 (프로젝트 레포, 없으면 최초 투입 — 생성)
 4. project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md 읽기 (프로젝트 레포)
 5. project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md  읽기 (프로젝트 레포, 있으면)
+6. (chief만) overseer / stability / sentinel Agent 3개 호출 → 완료 후 사용자에게 "감시 세션 활성화 완료" 보고 (생략 시 원칙 A 위반)
 ```
 
 모든 파일을 읽기 전에 작업을 시작하지 않는다.

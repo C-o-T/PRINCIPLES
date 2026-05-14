@@ -21,6 +21,18 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell",
+            "args": ["-ExecutionPolicy", "Bypass", "-File", ".claude/hooks/check-principle-files.ps1"]
+          }
+        ]
+      }
     ]
   }
 }

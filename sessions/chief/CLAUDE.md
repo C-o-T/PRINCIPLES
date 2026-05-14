@@ -130,9 +130,17 @@ chief의 가치는 오직 배분 · 통합 · 조율 · 원칙 감시다.
 **감시 세션**: overseer / stability / sentinel은 **5개 파일 로드 완료 직후, 사용자 첫 지시 처리 전**에 각각 Agent로 실행한다.
 빠뜨릴 경우 원칙 A 위반 — sentinel이 사용자에게 직접 보고
 
-**마커 파일 생성 필수**: 3개 실행 후 Write 도구로 `.claude/.sentinel_active`에 현재 시각 기록
+**마커 파일 생성 필수**: 3개 실행 후 Write 도구로 `.sentinel_active`에 현재 시각 기록
 → 미생성 시 10분 후 hook이 프롬프트 블로킹
 **감시 세션의 경고는 chief만 수신**: overseer/stability/sentinel은 chief에게만 경고하며, 서브 세션에 직접 개입하지 않는다.
+
+**원칙 파일 수정 위임 절차** (PreToolUse hook 적용 대상):
+1. Write 도구로 `.delegation_active` 생성 (내용: 위임 세션명, 예: `content-qa`)
+2. Agent 도구로 content-qa / developer 실행
+3. 세션 완료 후 `.delegation_active` 삭제
+→ 이 절차 없이 원칙 파일에 Edit/Write 시도하면 hook이 자동 차단
+
+보호 대상 원칙 파일: `AGENT_PRINCIPLES.md` / `sessions/_shared/PRINCIPLES.md` / `sessions/*/CLAUDE.md` / `START_HERE.md` / `CLAUDE.md` / `README.md`
 
 ---
 

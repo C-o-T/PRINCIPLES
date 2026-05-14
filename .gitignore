@@ -31,5 +31,6 @@ Thumbs.db
 .vscode/
 
 # 감시 세션 런타임 마커 — 로컬 전용
-.claude/.sentinel_active
-.claude/.session_mark
+.sentinel_active
+.session_mark
+.delegation_active

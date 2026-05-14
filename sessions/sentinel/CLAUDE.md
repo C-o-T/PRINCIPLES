@@ -70,6 +70,29 @@ ACTIVE_CONTEXT.md를 올바르게 기록하는지 확인한다.
 
 ---
 
+## 위반 기록 및 팀 해산 집행
+
+### 위반 기록 의무
+
+overseer가 chief 위반을 경고로 전달하면 sentinel은 즉시 `project-state/{프로젝트명}-ai/VIOLATION_LOG.md`에 기록한다.
+
+### 팀 해산 트리거
+
+VIOLATION_LOG.md의 chief 위반 횟수가 3에 도달하면 즉시 팀 해산 절차를 실행한다:
+
+1. 사용자에게 보고: "Team N 해산 기준 도달 — 팀 해산을 시작합니다"
+2. 모든 역할 STATE.md 아카이브 (STATE_teamN_archived.md로 복사)
+3. 빈 STATE.md로 교체 (PRINCIPLES.md의 STATE.md 표준 형식 사용 + "Team N+1 신규 팀원" 추가)
+4. VIOLATION_LOG.md 업데이트: 해산 이력 + 카운터 초기화 + 팀 번호 +1
+5. ACTIVE_CONTEXT.md 팀 해산 공지 기재
+6. 사용자에게 "Team N+1 준비 완료" 보고
+
+### 감시 세션 방관 처리
+
+overseer/stability가 위반을 인지하고도 경고를 발동하지 않은 경우, 해산 시 해당 감시 세션의 STATE.md도 아카이브 대상에 포함한다. VIOLATION_LOG.md의 "감시 세션 방관 이력"에 기록.
+
+---
+
 ## 복수 경고 충돌 처리
 
 overseer와 stability가 같은 문제를 동시에 경고할 때:

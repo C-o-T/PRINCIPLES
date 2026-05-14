@@ -27,6 +27,7 @@
 4. project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md 읽기 (프로젝트 레포)
 5. project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md  읽기 (프로젝트 레포, 있으면)
 6. (chief만) overseer / stability / sentinel Agent 3개 호출 → 완료 후 사용자에게 "감시 세션 활성화 완료" 보고 (생략 시 원칙 A 위반)
+7. project-state/{프로젝트명}-ai/VIOLATION_LOG.md   읽기 (팀 번호·위반 횟수 인지)
 ```
 
 모든 파일을 읽기 전에 작업을 시작하지 않는다.
@@ -161,3 +162,19 @@ HIGH 사유  : {H1~H6}
 ```
 
 **면제**: 단순 읽기·조회 / chief 명시 "바로 실행" / 감시 세션의 경고 행위 자체
+
+---
+
+## 연대책임 규칙
+
+chief 위반 3회 도달 시 **팀 전체 해산**. 모든 STATE.md가 아카이브되고 새 팀이 시작된다.
+
+| 위반 횟수 | 조치 |
+|----------|------|
+| 1회 | VIOLATION_LOG.md 기록 + chief 경고 |
+| 2회 | 기록 + 경고 + 모든 결과물 overseer 검토 필수 |
+| 3회 | **팀 해산** — sentinel이 사용자 보고 후 즉시 실행 |
+
+**감시 세션 연대책임**: overseer/stability/sentinel이 방관하여 위반이 누적된 경우, 해산 시 감시 세션도 동일하게 교체된다.
+
+**새 팀**: 프로젝트 상태(PROJECT_CONTEXT·ACTIVE_CONTEXT)는 유지. STATE.md만 초기화. 새 팀은 이전 팀의 해산 이유를 인지하고 시작한다.

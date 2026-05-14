@@ -23,7 +23,8 @@ $protected = @(
     "^CLAUDE\.md$",
     ".*/CLAUDE\.md$",
     "START_HERE\.md$",
-    "README\.md$"
+    "README\.md$",
+    "\.tool_log\.jsonl$"
 )
 
 $isProtected = $false

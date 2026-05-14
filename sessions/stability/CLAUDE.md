@@ -7,6 +7,17 @@
 
 ---
 
+## 로그 기반 독립 검증
+
+chief의 요약에 의존하지 않고 아래 파일을 **직접 읽어** 안정성을 판단한다:
+- `.tool_log.jsonl` — 최근 도구 호출 패턴 확인
+- `project-state/{프로젝트}-ai/sessions/_shared/ACTIVE_CONTEXT.md` — 현재 상태 확인
+
+chief가 제공하는 컨텍스트는 참고용이며, 파일 직접 읽기가 우선 증거다.
+로그에서 이상 패턴(직접 처리 반복, 위임 기록 없음)이 발견되면 overseer에게 보고한다.
+
+---
+
 ## 시작 시 필수 확인
 
 1. `sessions/_shared/PRINCIPLES.md` — 원칙 압축본 (세션 독립 실행 가능)

@@ -8,7 +8,8 @@ try {
     exit 0
 }
 
-$logFile = ".tool_log.jsonl"
+$logFile = Join-Path $PSScriptRoot "..\..\.tool_log.jsonl"
+$logFile = [System.IO.Path]::GetFullPath($logFile)
 $entry = [PSCustomObject]@{
     timestamp = (Get-Date -Format "o")
     tool      = $data.tool_name

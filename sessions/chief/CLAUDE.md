@@ -131,6 +131,7 @@ chief의 가치는 오직 배분 · 통합 · 조율 · 원칙 감시다.
 3. project-state/{프로젝트명}-ai/sessions/{role}/STATE.md  ← **프로젝트 레포**에서 읽기. 없으면 최초 투입.
 4. project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md
 5. project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md
+6. project-state/{프로젝트명}-ai/VIOLATION_LOG.md (팀 번호·위반 횟수 인지)
 
 작업 지시:
 {구체적인 작업 내용}
@@ -143,12 +144,13 @@ chief의 가치는 오직 배분 · 통합 · 조율 · 원칙 감시다.
 ```
 
 **병렬 실행**: 서로 독립적인 작업은 Agent 도구를 동시에 여러 개 호출한다.
-**감시 세션**: overseer / stability / sentinel은 **5개 파일 로드 완료 직후, 사용자 첫 지시 처리 전**에 각각 Agent로 실행한다.
+**감시 세션**: overseer / stability / sentinel은 **6개 파일 로드 완료 직후, 사용자 첫 지시 처리 전**에 각각 Agent로 실행한다.
 빠뜨릴 경우 원칙 A 위반 — sentinel이 사용자에게 직접 보고
 
 **마커 파일 생성 필수**: 3개 실행 후 Write 도구로 `.sentinel_active`에 현재 시각 기록
 → 미생성 시 10분 후 hook이 프롬프트 블로킹
-**감시 세션의 경고는 chief만 수신**: overseer/stability/sentinel은 chief에게만 경고하며, 서브 세션에 직접 개입하지 않는다.
+
+**[국세청 원칙]** 감시 세션은 경고 발동 시 chief와 사용자에게 **동시에** 보고한다. chief는 경고를 받은 후 수용/반박 응답 의무가 있으나, 감시 세션의 사용자 보고를 막을 수 없다.
 
 **원칙 파일 수정 위임 절차** (PreToolUse hook 적용 대상):
 1. Write 도구로 `.delegation_active` 생성 (내용: 위임 세션명, 예: `content-qa`)
@@ -194,8 +196,6 @@ git ls-files --others --exclude-standard sessions/
 
 출력이 있으면 → `git add` → `git commit` → `git push` 후 종료.
 출력이 없을 때만 완료 보고 가능.
-
----
 
 ---
 

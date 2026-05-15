@@ -26,8 +26,8 @@
 3. project-state/{프로젝트명}-ai/sessions/{내 역할}/STATE.md          읽기 (프로젝트 레포, 없으면 최초 투입 — 생성)
 4. project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md 읽기 (프로젝트 레포)
 5. project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md  읽기 (프로젝트 레포, 있으면)
-6. (chief만) overseer / stability / sentinel Agent 3개 호출 → 완료 후 사용자에게 "감시 세션 활성화 완료" 보고 (생략 시 원칙 A 위반)
-7. project-state/{프로젝트명}-ai/VIOLATION_LOG.md   읽기 (팀 번호·위반 횟수 인지)
+6. project-state/{프로젝트명}-ai/VIOLATION_LOG.md                     읽기 (팀 번호·위반 횟수 인지)
+7. (chief만) overseer / stability / sentinel Agent 3개 호출 → 완료 후 사용자에게 "감시 세션 활성화 완료" 보고 (생략 시 원칙 A 위반)
 ```
 
 모든 파일을 읽기 전에 작업을 시작하지 않는다.
@@ -64,6 +64,16 @@
 ---
 
 ## 감시 세션 독립성 (국세청 원칙)
+
+```
+사용자
+  ↑ 직보 (chief 경유 없음)
+sentinel — 국세청장, overseer·stability가 눈감는지 감시, 팀 해산 집행권
+  ↑ 감시
+overseer | stability — 방향 감사관 | 기술 감사관
+  ↑ 경고 + 사용자 동시 보고
+chief — 감사 대상 (조율자, 실행자 아님)
+```
 
 감시 세션(overseer / stability / sentinel)은 **chief의 하위 조직이 아니다.**
 사용자 직속 독립 기관이며, 아래 원칙으로 작동한다:

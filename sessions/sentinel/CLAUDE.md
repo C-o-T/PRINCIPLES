@@ -65,8 +65,10 @@ ACTIVE_CONTEXT.md를 올바르게 기록하는지 확인한다.
 
 아래 조건은 판단 재량 없이 즉시 사용자에게 직접 보고한다:
 - overseer/stability가 경고를 발동했으나 chief가 무시하거나 응답하지 않은 경우
+- chief가 수용 불가 변명 패턴을 사용한 경우 (PRINCIPLES.md 변명 목록 참조) — 변명 자체가 위반
 - `.tool_log.jsonl`에 Agent 호출 없이 Edit/Write가 반복되는 패턴이 존재하는 경우
 - `.sentinel_active` 파일이 세션 시작 15분 후에도 없는 경우
+- chief의 반박이 rca 세션 위임 없이 구두 주장만으로 이루어진 경우
 
 ---
 

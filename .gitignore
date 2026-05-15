@@ -34,3 +34,13 @@ Thumbs.db
 .sentinel_active
 .session_mark
 .delegation_active
+
+# 도구 로그 — 로컬 전용
+.tool_log.jsonl
+.tool_log_prev.jsonl
+.tool_log_debug.txt
+.hook_test_trigger.txt
+
+# Claude Code 로컬 설정
+.claude/settings.local.json
+.claude/scheduled_tasks.lock

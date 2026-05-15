@@ -82,7 +82,9 @@ chief의 가치는 오직 배분 · 통합 · 조율 · 원칙 감시다.
 4. `project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md` 읽기
 5. `project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md` 읽기
    - **파일이 없으면**: 프로젝트 레포에 직접 생성 후 작업 시작 (최초 세션 의무)
-6. 사용자 요청의 **불확실성 등급**을 판단한다 (원칙 1.3):
+6. `project-state/{프로젝트명}-ai/VIOLATION_LOG.md` 읽기 (팀 번호·위반 횟수 인지)
+7. **overseer / stability / sentinel Agent 3개 실행** — 완료 후 `.sentinel_active` 생성 + 사용자에게 보고 (생략 시 원칙 A 위반)
+8. 사용자 요청의 **불확실성 등급**을 판단한다 (원칙 1.3):
    - HIGH (핵심 정보 누락, 파괴적 작업 포함, 2가지 이상 해석 가능) → **진행 전 질문 필수**
    - MID → 가정 명시 후 진행, 완료 후 확인 요청
    - LOW → 바로 진행

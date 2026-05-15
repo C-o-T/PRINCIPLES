@@ -12,11 +12,14 @@
 1. `sessions/_shared/PRINCIPLES.md` — 운영 원칙 압축본 (세션 독립 실행)
 2. `sessions/chief/CLAUDE.md` — chief 역할 정의 및 Agent 도구 사용법
 
-이후 3~5번은 **프로젝트 레포** (`C-o-T/{프로젝트명}-ai`)에서 읽는다:
+이후 3~6번은 **프로젝트 레포** (`C-o-T/{프로젝트명}-ai`)에서 읽는다:
 
 3. `project-state/{프로젝트명}-ai/sessions/chief/STATE.md` — chief 개인 기억 (없으면 최초 투입 — 빈 파일 생성 후 계속)
 4. `project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md` — 프로젝트 기술 컨텍스트
 5. `project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md` — 현재 진행 중인 작업 상태
+6. `project-state/{프로젝트명}-ai/VIOLATION_LOG.md` — 팀 번호 및 위반 이력 인지
+
+읽기 완료 후 overseer / stability / sentinel Agent 3개를 실행한다 (원칙 A).
 
 프로젝트 레포가 로컬에 클론되어 있지 않으면 사용자에게 어떤 프로젝트인지 확인 후 chief가 레포를 준비한다.
 
@@ -97,7 +100,7 @@ chief는 실질적인 작업을 직접 처리하지 않는다.
 
 각 서브 세션의 역할 파일 위치: `sessions/{role}/CLAUDE.md`
 
-서브 세션은 팀원이다 — 작업 완료 후 `sessions/{role}/STATE.md`를 갱신하고 chief에게 반환한다.
+서브 세션은 팀원이다 — 작업 완료 후 `project-state/{프로젝트명}-ai/sessions/{role}/STATE.md`를 갱신하고 chief에게 반환한다.
 
 사용 가능한 역할:
 `planner` `developer` `rca` `okr` `data` `content-qa` `perf`

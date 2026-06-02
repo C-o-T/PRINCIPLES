@@ -45,6 +45,17 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell",
+            "args": ["-ExecutionPolicy", "Bypass", "-File", ".claude/hooks/sentinel_on_response.ps1"]
+          }
+        ]
+      }
     ]
   }
 }

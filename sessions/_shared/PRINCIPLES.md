@@ -24,10 +24,11 @@
 1. sessions/_shared/PRINCIPLES.md                                     읽기 (PRINCIPLES 레포) ← 이 파일
 2. sessions/{내 역할}/CLAUDE.md                                       읽기 (PRINCIPLES 레포)
 3. project-state/{프로젝트명}-ai/sessions/{내 역할}/STATE.md          읽기 (프로젝트 레포, 없으면 최초 투입 — 생성)
-4. project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md 읽기 (프로젝트 레포)
-5. project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md  읽기 (프로젝트 레포, 있으면)
-6. project-state/{프로젝트명}-ai/VIOLATION_LOG.md                     읽기 (팀 번호·위반 횟수 인지)
-7. (chief만) overseer / stability / sentinel Agent 3개 호출 → 완료 후 사용자에게 "감시 세션 활성화 완료" 보고 (생략 시 원칙 A 위반)
+4. (chief 제외) project-state/{프로젝트명}-ai/sessions/{내 역할}/inbox/ 확인 — 신규 파일 전부 읽는다
+5. project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md 읽기 (프로젝트 레포)
+6. project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md  읽기 (프로젝트 레포, 있으면)
+7. project-state/{프로젝트명}-ai/VIOLATION_LOG.md                     읽기 (팀 번호·위반 횟수 인지)
+8. (chief만) overseer / stability / sentinel Agent 3개 호출 → 완료 후 사용자에게 "감시 세션 활성화 완료" 보고 (생략 시 원칙 A 위반)
 ```
 
 모든 파일을 읽기 전에 작업을 시작하지 않는다.
@@ -177,6 +178,29 @@ Team {N} 신규 팀원 — 대기 중
 
 ## 다음 작업 예상
 없음
+```
+
+---
+
+## inbox / DISPATCH_LOG 표준 형식
+
+chief → 서브 세션 지시 전달은 **push(능동 전달)** 모델이다. 서브 세션의 자체 tail/폴링은 표준에서 제외한다 (1회성 호출-작업-반환 모델과 불합치 + Windows 동시쓰기 충돌 위험 실증됨).
+
+```
+project-state/{프로젝트명}-ai/sessions/{role}/inbox/            그 역할에게 온 지시 파일. chief만 쓴다.
+project-state/{프로젝트명}-ai/sessions/{role}/inbox/_processed/ 처리 완료 파일 이동 위치 (서브 세션이 자가 이동)
+project-state/{프로젝트명}-ai/sessions/_shared/DISPATCH_LOG.md  chief 전용 append-only 전달 이력
+```
+
+파일명: `{YYYYMMDD}_{HHMM}_{주제-slug}.md`
+
+전달 경로 2개만 표준:
+- **(a) 신규 Agent 호출**: inbox 작성 → DISPATCH_LOG append → 호출 프롬프트에 inbox 읽기 지시 포함
+- **(b) 기존 에이전트 재개**: 새 파일만 추가(기존 파일 수정 금지) → DISPATCH_LOG append → `SendMessage`로 재개 지시. chief 세션 재시작 시 agent id 소실 → (a)로 자동 폴백.
+
+DISPATCH_LOG.md 형식:
+```
+| 시각 | 대상 역할 | 파일 경로 | 전달방식(a/b) | 요지 |
 ```
 
 ---

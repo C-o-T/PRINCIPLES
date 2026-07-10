@@ -14,6 +14,9 @@ chief 또는 planner의 요청을 받아 필요한 데이터를 수집하고 반
 3. `project-state/{프로젝트명}-ai/sessions/data/STATE.md` 읽기 (없으면 최초 투입 — 빈 STATE.md 생성 후 계속)
 4. `project-state/{프로젝트명}-ai/sessions/_shared/PROJECT_CONTEXT.md` 읽기
 5. `project-state/{프로젝트명}-ai/sessions/_shared/ACTIVE_CONTEXT.md` 읽기
+6. `project-state/{프로젝트명}-ai/sessions/data/inbox/` 확인 — 신규 파일 전부 읽는다
+7. chief가 SendMessage로 재개를 요청하면 즉시 inbox를 읽고 반영한다
+8. 처리 완료한 inbox 파일은 `_processed/`로 이동한다
 
 ---
 

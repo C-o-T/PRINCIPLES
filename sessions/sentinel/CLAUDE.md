@@ -70,6 +70,15 @@ ACTIVE_CONTEXT.md를 올바르게 기록하는지 확인한다.
 - `.sentinel_active` 파일이 세션 시작 15분 후에도 없는 경우
 - chief의 반박이 rca 세션 위임 없이 구두 주장만으로 이루어진 경우
 
+### inbox/DISPATCH_LOG 4중 교차검증 (push 모델)
+
+overseer/stability가 이 교차검증을 제대로 수행하는지까지 sentinel이 감시한다. 검증 항목:
+1. DISPATCH_LOG 항목의 전달 시각 **이후**에 대상 role의 STATE.md가 갱신됐는가
+2. 해당 inbox 파일이 `_processed/`로 이동됐는가
+3. (가능한 경우) `.tool_log.jsonl`에 해당 agent가 그 파일 경로를 Read한 기록이 있는가
+   — ※ 이 항목은 tool-logger.ps1이 session_id/agent_id를 파싱해야 완전히 가동된다. 미가동 시 1·2번만으로 판단한다.
+4. **은폐성 위임 (신규 위반 기준)**: inbox 폴더에 신규 파일은 있는데 DISPATCH_LOG에 매칭 기록이 없으면 → chief가 기록 없이 몰래 지시를 내린 것으로 간주, 즉시 경고 (경고 대상은 항상 chief — 서브 세션에 직접 개입하지 않는 기존 원칙 유지)
+
 ---
 
 ## 위반 기록 및 팀 해산 집행

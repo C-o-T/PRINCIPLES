@@ -152,6 +152,45 @@ chief의 가치는 오직 배분 · 통합 · 조율 · 원칙 감시다.
 
 **[국세청 원칙]** 감시 세션은 경고 발동 시 chief와 사용자에게 **동시에** 보고한다. chief는 경고를 받은 후 수용/반박 응답 의무가 있으나, 감시 세션의 사용자 보고를 막을 수 없다.
 
+---
+
+## MD 푸시(inbox) 절차
+
+chief가 서브 세션에게 지시를 전달하는 방식은 **push(능동 전달)** 다.
+서브 세션이 스스로 파일을 tail·폴링하는 방식(수동 감시)은 이 하네스의 실행 모델(에이전트는 1회 호출-작업-반환, 상주 프로세스 아님)과 근본적으로 불합치하며, Windows에서 동시쓰기+tail 충돌로 파일 유실을 일으킬 위험이 실증됐다 — **자체 폴링은 표준에서 제외한다.**
+
+### 폴더 구조
+
+```
+project-state/{프로젝트명}-ai/sessions/{role}/inbox/            ← 그 역할에게 온 지시 파일들. chief만 쓴다.
+project-state/{프로젝트명}-ai/sessions/{role}/inbox/_processed/ ← 서브 에이전트가 처리 완료 후 자기 파일을 이동
+project-state/{프로젝트명}-ai/sessions/_shared/DISPATCH_LOG.md  ← chief 전용 append-only 전달 이력 (감사 인덱스)
+```
+
+파일명 규칙: `{YYYYMMDD}_{HHMM}_{주제-slug}.md` (예: `20260710_1530_push모델구현.md`)
+
+### 전달 경로 2개 (이 2개만 표준)
+
+**(a) 신규 Agent 호출 시**
+1. inbox에 지시 파일 작성 (위 파일명 규칙)
+2. `DISPATCH_LOG.md`에 1줄 append
+3. Agent 호출 프롬프트의 "시작 전 읽어라" 목록에 아래 항목을 반드시 포함:
+   `project-state/{프로젝트명}-ai/sessions/{role}/inbox/ 폴더의 파일을 모두 읽어라`
+
+**(b) 이미 실행 중/완료된 에이전트에 추가 지시**
+1. 기존 inbox 파일은 **절대 수정하지 않는다** — 항상 새 파일을 작성한다 (이미 읽었을 수도 있는 파일과 경합 방지)
+2. `DISPATCH_LOG.md`에 1줄 append
+3. `SendMessage(to=agent_id 또는 agent_name, "inbox에 새 지시 파일 {파일명}을 추가했다. 읽고 반영해라.")`
+
+이 경로 (b)는 chief가 그 에이전트의 id/name을 **현재 런타임 세션 안에서 보유하고 있을 때만** 가능하다. chief 세션이 재시작되면 에이전트 레지스트리가 소실되어 이 경로를 쓸 수 없고, 자동으로 경로 (a)(신규 Agent 재호출)로 폴백한다.
+
+### DISPATCH_LOG.md 표준 형식
+
+```
+| 시각 | 대상 역할 | 파일 경로 | 전달방식(a/b) | 요지 |
+|------|-----------|-----------|---------------|------|
+```
+
 **원칙 파일 수정 위임 절차** (PreToolUse hook 적용 대상):
 1. Write 도구로 `.delegation_active` 생성 (내용: 위임 세션명, 예: `content-qa`)
 2. Agent 도구로 content-qa / developer 실행

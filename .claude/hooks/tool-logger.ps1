@@ -62,13 +62,20 @@ try {
     try {
         $parseErr = $_.Exception.Message
         [System.IO.File]::AppendAllText($debugLog, "$(Get-Date -Format 'o') [WARN] JSON parse failed (regex fallback): $parseErr" + [System.Environment]::NewLine, [System.Text.Encoding]::UTF8)
-        $toolNameMatch = [regex]::Match($jsonString, '"tool_name"\s*:\s*"([^"]+)"')
-        $filePathMatch = [regex]::Match($jsonString, '"file_path"\s*:\s*"([^"\\]*(?:\\.[^"\\]*)*)"')
-        $toolName = if ($toolNameMatch.Success) { $toolNameMatch.Groups[1].Value } else { "parse_error" }
-        $toolPath = if ($filePathMatch.Success) { $filePathMatch.Groups[1].Value -replace '\\\\', '\' } else { "" }
-        $fallback = "{`"timestamp`":`"$(Get-Date -Format 'o')`",`"tool`":`"$toolName`",`"path`":`"$toolPath`",`"note`":`"regex_fallback`"}"
+        $toolNameMatch   = [regex]::Match($jsonString, '"tool_name"\s*:\s*"([^"]+)"')
+        $filePathMatch   = [regex]::Match($jsonString, '"file_path"\s*:\s*"([^"\\]*(?:\\.[^"\\]*)*)"')
+        $sessionIdMatch  = [regex]::Match($jsonString, '"session_id"\s*:\s*"([^"]+)"')
+        $agentIdMatch    = [regex]::Match($jsonString, '"agent_id"\s*:\s*"([^"]+)"')
+        $agentTypeMatch  = [regex]::Match($jsonString, '"agent_type"\s*:\s*"([^"]+)"')
+        $toolName  = if ($toolNameMatch.Success)  { $toolNameMatch.Groups[1].Value } else { "parse_error" }
+        $toolPath  = if ($filePathMatch.Success)  { $filePathMatch.Groups[1].Value -replace '\\\\', '\' } else { "" }
+        # 아래 3개는 실패해도(빈 문자열) 기존 필드(tool/path)는 안전하게 기록된다
+        $sessionId = if ($sessionIdMatch.Success)  { $sessionIdMatch.Groups[1].Value } else { "" }
+        $agentId   = if ($agentIdMatch.Success)    { $agentIdMatch.Groups[1].Value } else { "" }
+        $agentType = if ($agentTypeMatch.Success)  { $agentTypeMatch.Groups[1].Value } else { "" }
+        $fallback = "{`"timestamp`":`"$(Get-Date -Format 'o')`",`"tool`":`"$toolName`",`"path`":`"$toolPath`",`"session_id`":`"$sessionId`",`"agent_id`":`"$agentId`",`"agent_type`":`"$agentType`",`"note`":`"regex_fallback`"}"
         [System.IO.File]::AppendAllText($logFile, $fallback + [System.Environment]::NewLine, [System.Text.Encoding]::UTF8)
-        [System.IO.File]::AppendAllText($debugLog, "$(Get-Date -Format 'o') [OK] regex fallback: tool=$toolName path=$toolPath" + [System.Environment]::NewLine, [System.Text.Encoding]::UTF8)
+        [System.IO.File]::AppendAllText($debugLog, "$(Get-Date -Format 'o') [OK] regex fallback: tool=$toolName path=$toolPath agent_id=$agentId" + [System.Environment]::NewLine, [System.Text.Encoding]::UTF8)
     } catch { }
     exit 0
 }
@@ -80,15 +87,24 @@ try {
                 elseif ($data.tool_input -and $data.tool_input.command)   { $data.tool_input.command }   `
                 else { "" }
 
+    # session_id/agent_id/agent_type — PostToolUse stdin JSON에 실존 확인됨 (developer PoC, .tool_log_debug.txt raw JSON 실측)
+    # 필드 부재 시(예: chief 최상위 세션은 agent_id가 없을 수 있음) 빈 문자열로 안전하게 기록
+    $sessionId = if ($data.session_id) { $data.session_id } else { "" }
+    $agentId   = if ($data.agent_id)   { $data.agent_id }   else { "" }
+    $agentType = if ($data.agent_type) { $data.agent_type } else { "" }
+
     $entry = [PSCustomObject]@{
-        timestamp = (Get-Date -Format "o")
-        tool      = $toolName
-        path      = $toolPath
+        timestamp  = (Get-Date -Format "o")
+        tool       = $toolName
+        path       = $toolPath
+        session_id = $sessionId
+        agent_id   = $agentId
+        agent_type = $agentType
     }
 
     $line = $entry | ConvertTo-Json -Compress
     [System.IO.File]::AppendAllText($logFile, $line + [System.Environment]::NewLine, [System.Text.Encoding]::UTF8)
-    [System.IO.File]::AppendAllText($debugLog, "$(Get-Date -Format 'o') [OK] logged tool=$toolName path=$toolPath" + [System.Environment]::NewLine, [System.Text.Encoding]::UTF8)
+    [System.IO.File]::AppendAllText($debugLog, "$(Get-Date -Format 'o') [OK] logged tool=$toolName path=$toolPath agent_id=$agentId" + [System.Environment]::NewLine, [System.Text.Encoding]::UTF8)
 } catch {
     try {
         [System.IO.File]::AppendAllText($debugLog, "$(Get-Date -Format 'o') [ERROR] entry write failed: $_" + [System.Environment]::NewLine, [System.Text.Encoding]::UTF8)

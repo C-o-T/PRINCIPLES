@@ -1,7 +1,7 @@
 # PostToolUse 훅 — 도구 호출 로그 자동 기록
-# 절대 경로 사용 (PSScriptRoot 의존 제거)
-$debugLog = "C:\Users\wptmd\Desktop\joomidang\.tool_log_debug.txt"
-$logFile  = "C:\Users\wptmd\Desktop\joomidang\.tool_log.jsonl"
+# 저장소 루트 기준 상대 경로 (다른 hook과 동일한 방식 — session-start.ps1 / check-sentinel.ps1 참고)
+$debugLog = ".tool_log_debug.txt"
+$logFile  = ".tool_log.jsonl"
 
 # --- 디버그: hook 진입 기록 (절대 경로, 조건 없이 즉시 기록) ---
 try {

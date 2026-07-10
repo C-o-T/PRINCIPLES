@@ -58,8 +58,6 @@ PRINCIPLES/
 ├── CLAUDE.md
 ├── sessions/{role}/CLAUDE.md
 └── project-state/            ← .gitignore 등록 — 오염 없음
-    ├── joomidang-ai/         ← git: C-o-T/joomidang-ai
-    │   └── sessions/{role}/STATE.md, ACTIVE_CONTEXT.md
     └── dataverse-ai/         ← git: C-o-T/dataverse-ai
         └── sessions/{role}/STATE.md, ACTIVE_CONTEXT.md
 ```
@@ -68,7 +66,6 @@ PRINCIPLES/
 
 | 프로젝트 | GitHub 레포 | 설명 |
 |----------|------------|------|
-| joomidang | `C-o-T/joomidang-ai` | 역직구 전통주 플랫폼 |
 | dataverse | `C-o-T/dataverse-ai` | 데이터 수집·가공 인프라 |
 
 ---
